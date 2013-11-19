@@ -1,0 +1,22 @@
+﻿@model NumberGuessingGame.ViewModels.GuessingIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.ValidationSummary("Gissningen misslyckades. Rätta till felet och försök igen.")
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Guess):
+    </div>
+    <div>
+        @Html.TextBoxFor(m => m.Guess)  
+    </div>
+    <input type="submit" value="Skicka gissning" />
+    
+}
