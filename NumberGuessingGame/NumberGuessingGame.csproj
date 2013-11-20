@@ -221,6 +221,9 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\NumberGuessing\Index.cshtml" />
+    <Content Include="Views\NumberGuessing\_GuessForm.cshtml" />
+    <Content Include="Views\NumberGuessing\Guess.cshtml" />
+    <Content Include="Views\NumberGuessing\_Guesses.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

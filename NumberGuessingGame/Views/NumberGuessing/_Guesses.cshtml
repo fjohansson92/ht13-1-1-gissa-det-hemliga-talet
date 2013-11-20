@@ -1,0 +1,6 @@
+﻿@model NumberGuessingGame.ViewModels.GuessingIndexViewModel
+
+@foreach (var item in Model.secretNumber.GuessedNumbers)
+{ 
+    @Html.DisplayTextFor(m => item.Number)
+}

@@ -1,0 +1,21 @@
+﻿@model NumberGuessingGame.ViewModels.GuessingIndexViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<h2>
+    @Html.DisplayTextFor(m => m.OutcomeText)
+</h2>
+
+@if (Model.secretNumber.CanMakeGuess) {
+
+    @Html.Partial("_GuessForm")
+
+}    
+    
+<p>
+    @Html.DisplayTextFor(m => m.Message)
+</p>
+
+@Html.Partial("_Guesses")

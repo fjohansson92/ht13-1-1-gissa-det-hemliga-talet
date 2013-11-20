@@ -80,12 +80,14 @@ namespace NumberGuessingGame.Models
             {
                 return Outcome.NoMoreGuesses;
             }
-            else if (this._guessedNumbers.Exists(x => x.Number == guess))
-            {
-                return Outcome.OldGuess;
-            }
 
-            if (guess > _number)
+            this._lastGuessedNumber.Number = guess;
+
+            if (this._guessedNumbers.Exists(x => x.Number == guess))
+            {
+                this._lastGuessedNumber.Outcome = Outcome.OldGuess;
+                return this._lastGuessedNumber.Outcome;
+            } else if (guess > _number)
             {
                 this._lastGuessedNumber.Outcome = Outcome.High;
             }
@@ -98,7 +100,6 @@ namespace NumberGuessingGame.Models
                 this._lastGuessedNumber.Outcome = Outcome.Right;
             }
 
-            this._lastGuessedNumber.Number = guess;
             this._guessedNumbers.Add(this._lastGuessedNumber);
             return this._lastGuessedNumber.Outcome;
         }
