@@ -1,6 +1,20 @@
 ﻿@model NumberGuessingGame.ViewModels.GuessingIndexViewModel
 
+<ol>
 @foreach (var item in Model.secretNumber.GuessedNumbers)
 { 
-    @Html.DisplayTextFor(m => item.Number)
+    <li class="@Html.DisplayTextFor(m => item.Outcome)">
+
+        @if (item.Outcome == NumberGuessingGame.Models.Outcome.Low)
+        { 
+            @:↑
+        }
+        @Html.DisplayTextFor(m => item.Number)
+
+        @if (item.Outcome == NumberGuessingGame.Models.Outcome.High) 
+        {
+            @:↓
+        }
+    </li>
 }
+</ol>

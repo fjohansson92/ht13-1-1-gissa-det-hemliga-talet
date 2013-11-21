@@ -6,11 +6,18 @@
         @Html.ValidationSummary("Gissningen misslyckades. Rätta till felet och försök igen.")
     </div>
     <div>
-        @Html.LabelFor(m => m.Guess):
+        @Html.LabelFor(m => m.Guess)
     </div>
     <div>
-        @Html.TextBoxFor(m => m.Guess)  
+        
+        @Html.TextBoxFor(m => m.Guess, Model.secretNumber.CanMakeGuess ? new {} : (object)new { disabled="disabled" })  
     </div>
-    <input type="submit" value="Skicka gissning" />
+    <input type="submit" value="Skicka gissning" 
+        @if (!Model.secretNumber.CanMakeGuess) 
+        {
+            @:disabled="disabled"
+        }   
+
+    />
     
 }

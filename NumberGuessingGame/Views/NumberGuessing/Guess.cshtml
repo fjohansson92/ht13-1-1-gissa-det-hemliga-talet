@@ -8,7 +8,7 @@
     @Html.DisplayTextFor(m => m.OutcomeText)
 </h2>
 
-@if (Model.secretNumber.CanMakeGuess) {
+@if (Model.secretNumber.LastGuessedNumber.Outcome != NumberGuessingGame.Models.Outcome.Right) {
 
     @Html.Partial("_GuessForm")
 
@@ -19,3 +19,10 @@
 </p>
 
 @Html.Partial("_Guesses")
+
+@if (!Model.secretNumber.CanMakeGuess)
+{
+    <p>
+        @Html.ActionLink("Slumpa nytt hemliga tal", "Index")
+    </p>
+}

@@ -224,6 +224,7 @@
     <Content Include="Views\NumberGuessing\_GuessForm.cshtml" />
     <Content Include="Views\NumberGuessing\Guess.cshtml" />
     <Content Include="Views\NumberGuessing\_Guesses.cshtml" />
+    <Content Include="Views\NumberGuessing\SessionError.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

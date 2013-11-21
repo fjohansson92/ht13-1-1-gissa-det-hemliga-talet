@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,7 @@ namespace NumberGuessingGame.ViewModels
     {
         [Required(ErrorMessage = "Du måste göra en gissning.")]
         [Range(1, 100, ErrorMessage = "Talet måste vara mellan 1 och 100.")]
+        [DisplayName("Gissa ett tal mellan 1 och 100:")]
         public int Guess { get; set; }
 
         public SecretNumber secretNumber;
@@ -25,9 +27,6 @@ namespace NumberGuessingGame.ViewModels
                     case Outcome.OldGuess:
                         message = String.Format("Du har redan gissat på talet {0}!", secretNumber.LastGuessedNumber.Number);
                         break;
-                    case NumberGuessingGame.Models.Outcome.NoMoreGuesses:
-                        message = String.Format("{0} är för lågt. Inga fler gissningar! Det hemliga talet var {1}.", secretNumber.LastGuessedNumber.Number, secretNumber.Number);
-                        break;
                     case NumberGuessingGame.Models.Outcome.High:
                         message = String.Format("{0} är för högt", secretNumber.LastGuessedNumber.Number);
                         break;
@@ -35,10 +34,14 @@ namespace NumberGuessingGame.ViewModels
                         message = String.Format("{0} är för lågt", secretNumber.LastGuessedNumber.Number);
                         break;
                     case NumberGuessingGame.Models.Outcome.Right:
-                        string number = this.getNumber((int)secretNumber.Count);
-                        message = String.Format("Grattis du klarade det på {0} försöket", number);
-                        break;
+                        string number = this.getNumber((int)secretNumber.Count).ToLower();
+                        return String.Format("Grattis du klarade det på {0} försöket", number);
                 }
+                if (!secretNumber.CanMakeGuess)
+                {
+                    message += String.Format(". Inga fler gissningar! Det hemliga talet var {0}.", secretNumber.Number);
+                }
+
                 return message;
             }
         }
@@ -114,5 +117,6 @@ namespace NumberGuessingGame.ViewModels
             }
             return number;
         }
+
     }
 }
