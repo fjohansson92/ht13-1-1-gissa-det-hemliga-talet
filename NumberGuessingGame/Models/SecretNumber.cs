@@ -7,39 +7,46 @@ namespace NumberGuessingGame.Models
 {
     public class SecretNumber
     {
-
+        // Contains previous allowed guesses
         private List<GuessedNumber> _guessedNumbers;
 
+        // Represents last guess.
         private GuessedNumber _lastGuessedNumber;
 
+        // The correct secret number.
         private int? _number;
 
+        // Max number of guesses before game over.
         public const int MaxNumberOfGuesses = 7;
 
+        // Returns if user is allowed to guess.
         public bool CanMakeGuess
         {
             get 
             {
-                return this.Count < MaxNumberOfGuesses && this.LastGuessedNumber.Outcome != Outcome.Right;
+                return Count < MaxNumberOfGuesses && LastGuessedNumber.Outcome != Outcome.Right;
             }
         }
 
+        // Return number of guesses done.
         public int Count 
         {
             get
             {
-                return this._guessedNumbers.Count();
+                return _guessedNumbers.Count();
             }
         }
 
+        // Return a read-only reference of the guesses made.
         public IList<GuessedNumber> GuessedNumbers
         {
             get
             {
-                return this._guessedNumbers.AsReadOnly();
+                return _guessedNumbers.AsReadOnly();
             }
         }
 
+        // Returns the last guess.
         public GuessedNumber LastGuessedNumber
         {
             get 
@@ -48,66 +55,70 @@ namespace NumberGuessingGame.Models
             }
         }
 
+        // Returns the secret number when the game is over.
         public int? Number
         {
             get
             {
-                return this.CanMakeGuess ? null : this._number;
+                return CanMakeGuess ? null : this._number;
             }
             private set
             {
-                this._number = value;
+                _number = value;
             }
         }
 
-        public void Initialize() 
+        // Initialize the class.
+        public SecretNumber()
         {
-            this._guessedNumbers.Clear();
-            Random random = new Random();
-            this.Number = random.Next(1, 100);
-
-            this._lastGuessedNumber = new GuessedNumber();
-            this._lastGuessedNumber.Outcome = Outcome.Indefinite;
+            _guessedNumbers = new List<GuessedNumber>(MaxNumberOfGuesses);
+            Initialize();
         }
 
+        // Initialize the class properties.
+        public void Initialize() 
+        {
+            _guessedNumbers.Clear();
+            Random random = new Random();
+            Number = random.Next(1, 100);
+
+            _lastGuessedNumber = new GuessedNumber();
+            _lastGuessedNumber.Outcome = Outcome.Indefinite;
+        }
+
+        // Takes care of a guess and returns outcome.
         public Outcome MakeGuess(int guess)
         {
             if (guess > 100 || guess < 1)
             {
                 throw new ArgumentOutOfRangeException();
             }
-            else if (!this.CanMakeGuess)
+            else if (!CanMakeGuess)
             {
                 return Outcome.NoMoreGuesses;
             }
 
-            this._lastGuessedNumber.Number = guess;
+            _lastGuessedNumber.Number = guess;
 
-            if (this._guessedNumbers.Exists(x => x.Number == guess))
+            if (_guessedNumbers.Exists(x => x.Number == guess))
             {
-                this._lastGuessedNumber.Outcome = Outcome.OldGuess;
-                return this._lastGuessedNumber.Outcome;
+                _lastGuessedNumber.Outcome = Outcome.OldGuess;
+                return _lastGuessedNumber.Outcome;
             } else if (guess > _number)
             {
-                this._lastGuessedNumber.Outcome = Outcome.High;
+                _lastGuessedNumber.Outcome = Outcome.High;
             }
             else if (guess < _number)
             {
-                this._lastGuessedNumber.Outcome = Outcome.Low;
+                _lastGuessedNumber.Outcome = Outcome.Low;
             }
             else
             {
-                this._lastGuessedNumber.Outcome = Outcome.Right;
+                _lastGuessedNumber.Outcome = Outcome.Right;
             }
 
-            this._guessedNumbers.Add(this._lastGuessedNumber);
-            return this._lastGuessedNumber.Outcome;
-        }
-
-        public SecretNumber() 
-        {
-            this._guessedNumbers = new List<GuessedNumber>(MaxNumberOfGuesses);
-            this.Initialize();
+            _guessedNumbers.Add(_lastGuessedNumber);
+            return _lastGuessedNumber.Outcome;
         }
     }
 }

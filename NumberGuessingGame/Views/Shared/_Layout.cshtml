@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Resource = NumberGuessingGame.Resources.Strings
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,9 +9,27 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @RenderBody()
+    <div class="content">
+        <div class="header">
+            <ul>
+                <li>@Resource.Course</li>
+                <li>→</li>
+                <li>@Resource.Step</li>
+                <li>→</li>
+                <li>@Resource.Problem</li>
+            </ul>
+            <h1>@Resource.GuessTitle</h1>
+        </div>
+        <div class="renderd">
+            @RenderBody()
+        </div>
+        <div class="footer">
+            <p>@Resource.School</p>
+        </div>
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
 </body>
 </html>

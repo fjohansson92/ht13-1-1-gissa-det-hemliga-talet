@@ -1,20 +1,25 @@
-﻿@model NumberGuessingGame.ViewModels.GuessingIndexViewModel
+﻿@using Resource = NumberGuessingGame.Resources.Strings
+@model NumberGuessingGame.ViewModels.GuessingIndexViewModel
+@* Presents a list of previous guesses. *@
 
 <ol>
 @foreach (var item in Model.secretNumber.GuessedNumbers)
 { 
+    
     <li class="@Html.DisplayTextFor(m => item.Outcome)">
-
+        <br />
         @if (item.Outcome == NumberGuessingGame.Models.Outcome.Low)
         { 
-            @:↑
+            <p>@Resource.UpArrow</p>
         }
+        <p>
         @Html.DisplayTextFor(m => item.Number)
-
+            </p>
         @if (item.Outcome == NumberGuessingGame.Models.Outcome.High) 
         {
-            @:↓
+            <p>@Resource.DownArrow</p>
         }
     </li>
+    
 }
 </ol>

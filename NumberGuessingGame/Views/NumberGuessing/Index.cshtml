@@ -1,9 +1,31 @@
-﻿@model NumberGuessingGame.ViewModels.GuessingIndexViewModel
+﻿@using Resource = NumberGuessingGame.Resources.Strings
+@* Presents form for guesses and the result from the guesses. *@
+
+@model NumberGuessingGame.ViewModels.GuessingIndexViewModel
 
 @{
-    ViewBag.Title = "Gissa det hemliga talet";
+    ViewBag.Title = Model.Title;
 }
 
-<h2>Börja gissa!</h2>
+<h2>
+    @Html.DisplayTextFor(m => m.OutcomeText)
+</h2>
 
-@Html.Partial("_GuessForm")
+@if (Model.secretNumber.LastGuessedNumber.Outcome != NumberGuessingGame.Models.Outcome.Right) {
+
+    @Html.Partial("_GuessForm")
+
+}    
+    
+<p>
+    @Html.DisplayTextFor(m => m.Message)
+</p>
+
+@Html.Partial("_Guesses")
+
+@if (!Model.secretNumber.CanMakeGuess)
+{
+    <p>
+        @Html.ActionLink(Resource.NewNumber, "Index")
+    </p>
+}

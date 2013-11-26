@@ -1,4 +1,6 @@
-﻿body {
+﻿@import url("Game.css");
+
+body {
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     color: #232323;

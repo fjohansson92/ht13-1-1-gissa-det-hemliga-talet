@@ -5,6 +5,7 @@ using System.Web;
 
 namespace NumberGuessingGame.Models
 {
+    // Outcome represents the result from a guess.
     public enum Outcome
     {
         Indefinite,

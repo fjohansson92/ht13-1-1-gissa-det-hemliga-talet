@@ -1,23 +1,31 @@
-﻿@model NumberGuessingGame.ViewModels.GuessingIndexViewModel
+﻿@using Resource = NumberGuessingGame.Resources.Strings
+@model NumberGuessingGame.ViewModels.GuessingIndexViewModel
+@* Presents form  for guesses. *@
 
 @using (Html.BeginForm())
 {
     <div>
-        @Html.ValidationSummary("Gissningen misslyckades. Rätta till felet och försök igen.")
+        @Html.ValidationSummary(Resource.GuessSumError)
     </div>
-    <div>
+    <div class="guessLabel">
         @Html.LabelFor(m => m.Guess)
     </div>
-    <div>
-        
+    <div class="guessInput">
         @Html.TextBoxFor(m => m.Guess, Model.secretNumber.CanMakeGuess ? new {} : (object)new { disabled="disabled" })  
     </div>
-    <input type="submit" value="Skicka gissning" 
+    <input type="submit" value="Skicka gissning" class="guessButton"
         @if (!Model.secretNumber.CanMakeGuess) 
         {
             @:disabled="disabled"
         }   
-
     />
-    
+}
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $("#Guess".focus());
+        });
+    </script>    
 }

@@ -1,0 +1,121 @@
+﻿.content
+{
+    width: 660px;
+    margin: 0 auto;
+}
+.header
+{
+    border-left: 1px solid black;
+    padding-left: 10px;
+    padding-bottom: -30px;
+    height: 80px;
+}
+.header ul
+{
+    margin: 0;
+    padding: 0;
+}
+.header li
+{
+    display: inline;
+    font-style: italic;
+    font-size: 12px;
+    font-family: serif;
+}
+.header h1
+{
+    font-size: 37px;
+    margin: 0;
+    margin-top: 20px;
+    padding: 0;
+}
+.renderd
+{
+    margin-top: 10px;
+    border-top: 20px solid #DDDDD5;
+    padding-top: 30px;
+    padding-left: 10px;
+    font-family: serif;
+}
+.renderd h2
+{
+    font-size: 30px;
+    font-family: serif;
+    margin: 0;
+    margin-bottom: 10px;
+}
+.guessLabel, .guessInput, .guessButton
+{
+    display: inline;
+}
+.guessInput input
+{
+    width: 20px;
+    text-align: center;
+}
+body ol
+{
+    list-style-position:inside;
+    counter-reset: item;
+    list-style-type: none;
+    border-left: 1px solid black;
+    overflow: auto;
+    padding: 0;
+} 
+body ol li {
+
+    float:left;
+    padding-left: 7px;
+    margin-right: 0px;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+    border-left: none;
+}
+body ol li:before
+{
+    content: counter(item) ""; 
+    counter-increment: item 
+}
+body ol li.Low p
+{
+    background-color: #C0C0FF;
+    color: black;
+}
+body ol li.High p
+{
+    background-color: #FFC0C0;
+    color: black;
+}
+body ol li.Right p
+{
+    background-color: #C0FFC0;
+    color: black;
+    padding: 14.4px 0;
+}
+body ol li p
+{
+    margin: 0;
+    margin-left: -7px;
+    padding: 3px;
+    text-align: center;
+}
+a
+{
+    background-color: yellow;
+    Text-decoration: none;   
+    font-family: serif;
+    color: black;
+}
+
+.footer
+{
+    margin-top: 20px;
+    border-top: 1px solid black;
+}
+.footer p
+{
+    float: right;
+    font-family: serif;
+    font-size: 12px;
+}

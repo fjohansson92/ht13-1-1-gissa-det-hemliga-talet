@@ -1,11 +1,15 @@
-﻿@{
-    ViewBag.Title = "Spelomgången kunde inte fullföljas";
+﻿@using Resource = NumberGuessingGame.Resources.Strings
+@* Presents a error page for session errors. *@
+
+@{
+    ViewBag.Title = Resource.SessionErrorTitle;
 }
+
 
 <h2>Spelomgången kunde inte fullföljas</h2>
 
 <p>Du väntade för länge med att gissa varför spelomgången inte kunde fullföljas.</p>
 
 <p>
-    @Html.ActionLink("Börja om", "Index")
+    @Html.ActionLink(Resource.Restart, "Index")
 </p>

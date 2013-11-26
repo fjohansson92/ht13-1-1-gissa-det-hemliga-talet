@@ -3,20 +3,24 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Web;
 using NumberGuessingGame.Models;
+using NumberGuessingGame.Resources;
 
 namespace NumberGuessingGame.ViewModels
 {
     public class GuessingIndexViewModel
     {
-        [Required(ErrorMessage = "Du måste göra en gissning.")]
-        [Range(1, 100, ErrorMessage = "Talet måste vara mellan 1 och 100.")]
-        [DisplayName("Gissa ett tal mellan 1 och 100:")]
+        // The guess made by user.
+        [Required(ErrorMessageResourceName = "GuessRequiredError", ErrorMessageResourceType = typeof(Resources.Strings))]
+        [Range(1, 100, ErrorMessageResourceName = "GuessRangeError", ErrorMessageResourceType = typeof(Resources.Strings))]
+        [Display(Name = "GuessName", ResourceType = typeof(Resources.Strings))]
         public int Guess { get; set; }
 
         public SecretNumber secretNumber;
 
+        // Returns message describing outcome from guess.
         public string Message
         {
             get
@@ -25,27 +29,28 @@ namespace NumberGuessingGame.ViewModels
                 switch (secretNumber.LastGuessedNumber.Outcome)
                 {
                     case Outcome.OldGuess:
-                        message = String.Format("Du har redan gissat på talet {0}!", secretNumber.LastGuessedNumber.Number);
+                        message = String.Format(Strings.OldGuessMessage, secretNumber.LastGuessedNumber.Number);
                         break;
                     case NumberGuessingGame.Models.Outcome.High:
-                        message = String.Format("{0} är för högt", secretNumber.LastGuessedNumber.Number);
+                        message = String.Format(Strings.HighGuessMessage, secretNumber.LastGuessedNumber.Number);
                         break;
                     case NumberGuessingGame.Models.Outcome.Low:
-                        message = String.Format("{0} är för lågt", secretNumber.LastGuessedNumber.Number);
+                        message = String.Format(Strings.LowGuessMessage, secretNumber.LastGuessedNumber.Number);
                         break;
                     case NumberGuessingGame.Models.Outcome.Right:
                         string number = this.getNumber((int)secretNumber.Count).ToLower();
-                        return String.Format("Grattis du klarade det på {0} försöket", number);
+                        return String.Format(Strings.RightGuessMessage, number);
                 }
                 if (!secretNumber.CanMakeGuess)
                 {
-                    message += String.Format(". Inga fler gissningar! Det hemliga talet var {0}.", secretNumber.Number);
+                    message += String.Format(Strings.NoMoreGuessesMessage, secretNumber.Number);
                 }
 
                 return message;
             }
         }
 
+        // Returns a text describing the current stage in the game.
         public string OutcomeText 
         {
             get
@@ -55,21 +60,22 @@ namespace NumberGuessingGame.ViewModels
                 {
                     outcome = this.getNumber(secretNumber.Count + 1);
 
-                    outcome += " gissningen";
+                    outcome += Strings.Guess;
                 }
                 else if (secretNumber.LastGuessedNumber.Outcome == Outcome.Right)
                 {
-                    outcome = "Rätt gissat!";
+                    outcome = Strings.RightGuess;
                 }
                 else 
                 {
-                    outcome = "Inga fler gissningar!";
+                    outcome = Strings.GameOver;
                 }
 
                 return outcome;
             }
         }
 
+        // Returns string to be used as title.
         public string Title
         {
             get
@@ -77,42 +83,43 @@ namespace NumberGuessingGame.ViewModels
                 string title;
                 if (secretNumber.LastGuessedNumber.Outcome == Outcome.Right)
                 {
-                    title = "Rätt gissat!";
+                    title = Strings.RightGuess;
                 }
                 else
                 {
-                    title = "Gissa det hemliga talet";
+                    title = Strings.GuessTitle;
                 }
 
                 return title;            
             }
         }
 
+        // Converts a integer to a respective string. 
         private string getNumber(int num)
         {
             string number = "";
             switch (num)
             {
                 case 1:
-                    number = "Första";
+                    number = Strings.First;
                     break;
                 case 2:
-                    number = "Andra";
+                    number = Strings.Second;
                     break;
                 case 3:
-                    number = "Tredje";
+                    number = Strings.Third;
                     break;
                 case 4:
-                    number = "Fjärde";
+                    number = Strings.Forth;
                     break;
                 case 5:
-                    number = "Femte";
+                    number = Strings.Fifth;
                     break;
                 case 6:
-                    number = "Sjätte";
+                    number = Strings.Sixth;
                     break;
                 case 7:
-                    number = "Sjunde";
+                    number = Strings.Seventh;
                     break;
             }
             return number;

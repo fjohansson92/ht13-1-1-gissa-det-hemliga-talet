@@ -12,6 +12,7 @@ namespace NumberGuessingGame.Controllers
     {
         //
         // GET: /NumberGuessing/
+        // Starts a new Numberguessinggame.
 
         public ActionResult Index()
         {
@@ -34,6 +35,10 @@ namespace NumberGuessingGame.Controllers
             return View("Index", model);
         }
 
+        //
+        // POST: /NumberGuessing/
+        // Takes care of a guess.
+
         [HttpPost]
         public ActionResult Index([Bind(Include="Guess")]GuessingIndexViewModel guessingIndexViewModel)
         {
@@ -50,7 +55,7 @@ namespace NumberGuessingGame.Controllers
                 var outcome = secretNumber.MakeGuess(guessingIndexViewModel.Guess);
             }
 
-            return View("Guess", guessingIndexViewModel);
+            return View("Index", guessingIndexViewModel);
         }
         
     }
